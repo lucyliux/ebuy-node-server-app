@@ -42,17 +42,11 @@ const profile = (req, res) => {
   // res.json(users)
 }
 
-const update = async (req, res) => {
+const updateUser = async (req, res) => {
   const user = req.body;
-  console.log('update');
-  console.log(user);
-  console.log('dao');
   const found = await usersDao.findUserByUsername(user.username)
-  console.log(found);
   await usersDao.updateUser(user);
   const updatedUser = await usersDao.findUserByUsername(user.username);
-  console.log('updated');
-  console.log(updatedUser);
   if (updatedUser) {
     // user._id = new Date().getTime() + "";
     req.session['currentUser'] = updatedUser;
@@ -64,13 +58,16 @@ const update = async (req, res) => {
   }
 }
 
-const UserController = (app) => {
+const UsersController = (app) => {
+  // app.get('/users', findAllUsers)
+  // app.get('/users/:uid', findUserById)
+  app.put('/users', updateUser)
+  // app.delete('/users/:uid', deleteUser)
+
   app.post("/api/auth/login", login);
   app.post("/api/auth/signup", signup);
   app.post("/api/auth/logout", logout);
-  // app.get("/api/users/:username", findUserByUsername);
   app.post("/api/auth/profile", profile);
-  app.put("/api/update", update);
 };
 
-export default UserController;
+export default UsersController;

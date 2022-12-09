@@ -7,9 +7,9 @@ const usersSchema = mongoose.Schema({
   phoneNumber: { type: String, required: true },
   avatar: String,
   address: String,
-  likes: Array,
-  listing: Array,
-  reviews: Array,
+  likes: String,
+  listings: { type: String },
+  reviews: String,
 }, { collection: "users" });
 
 export default usersSchema;

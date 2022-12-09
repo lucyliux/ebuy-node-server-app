@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import UsersController from "./controllers/users/users-controller.js";
 import SessionController from "./controllers/session/session-controller.js";
 import mongoose from "mongoose";
+import ItemsController from "./controllers/items/items-controller.js";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING
   || 'mongodb+srv://KLM:ilovewebdev@ebuy-project.9qfgkai.mongodb.net/ebuy-project?retryWrites=true&w=majority'
@@ -50,5 +51,5 @@ app.use(express.json());
 
 UsersController(app);
 SessionController(app);
-
+ItemsController(app);
 app.listen(4000);
