@@ -5,8 +5,6 @@ const create = async (req, res) => {
   console.log("hoho");
   console.log(req);
   const newItem = await itemsDao.createItem(item);
-  res.header("Access-Control-Allow-Origin", "https://main--stalwart-figolla-6ff949.netlify.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.json(newItem);
 };
 
@@ -20,8 +18,6 @@ const findRecentItems = async (req, res) => {
   console.log("recents");
   console.log(items);
   console.log("haha");
-  res.header("Access-Control-Allow-Origin", "https://main--stalwart-figolla-6ff949.netlify.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.json(items);
 };
 
@@ -32,8 +28,6 @@ const findAllItems = async (req, res) => {
   console.log("all");
   console.log(items);
   console.log("haha");
-  res.header("Access-Control-Allow-Origin", "https://main--stalwart-figolla-6ff949.netlify.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.json(items);
 };
 
@@ -44,8 +38,6 @@ const findItemsByKeyword = async (req, res) => {
   console.log("all");
   console.log(items);
   console.log("haha");
-  res.header("Access-Control-Allow-Origin", "https://main--stalwart-figolla-6ff949.netlify.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.json(items);
 };
 
