@@ -22,6 +22,7 @@ const login = async (req, res) => {
   const existingUser = await usersDao.findUserByCredentials(credentials);
   if (existingUser) {
     req.session['currentUser'] = existingUser;
+    console.log(req)
     res.send(existingUser);
     return;
   } else {
@@ -35,11 +36,7 @@ const logout = (req, res) => {
 }
 
 const profile = (req, res) => {
-  console.log("get current");
-  // console.log(req);
-  console.log(req.session);
   res.send(req.session['currentUser']);
-  // res.json(users)
 }
 
 const updateUser = async (req, res) => {
@@ -49,7 +46,6 @@ const updateUser = async (req, res) => {
   const updatedUser = await usersDao.findUserByUsername(user.username);
   if (updatedUser) {
     // user._id = new Date().getTime() + "";
-    req.session['currentUser'] = updatedUser;
     res.json(updatedUser);
   }
   else {
@@ -58,10 +54,19 @@ const updateUser = async (req, res) => {
   }
 }
 
+const findUserByName = async (req, res) => {
+  const username = req.params.username;
+  const user = await usersDao.findUserByUsername(username);
+  console.log(user);
+  console.log(username);
+  res.json(user);
+}
+
 const UsersController = (app) => {
   // app.get('/users', findAllUsers)
   // app.get('/users/:uid', findUserById)
-  app.put('/users', updateUser)
+  app.put('/api/users', updateUser)
+  app.get('/api/users/:username', findUserByName)
   // app.delete('/users/:uid', deleteUser)
 
   app.post("/api/auth/login", login);
