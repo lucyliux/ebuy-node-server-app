@@ -1,4 +1,4 @@
-import * as itemsDao from './items-dao.js'
+import * as itemsDao from "./items-dao.js";
 
 const create = async (req, res) => {
   const item = req.body;
@@ -6,18 +6,22 @@ const create = async (req, res) => {
   console.log(req);
   const newItem = await itemsDao.createItem(item);
   res.json(newItem);
-}
+};
 
 const findRecentItems = async (req, res) => {
-  const itemIds = req.body.itemIds.split(",").filter((str) => str !== "").splice(0, 4);
+  const itemIds = req.body.itemIds
+    .split(",")
+    .filter((str) => str !== "")
+    .splice(0, 4);
   console.log(itemIds);
   const items = await itemsDao.findItems(itemIds);
   console.log("recents");
   console.log(items);
   console.log("haha");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.json(items);
-  // res.json({})
-}
+};
 
 const findAllItems = async (req, res) => {
   const itemIds = req.body.itemIds.split(",").filter((str) => str !== "");
@@ -26,8 +30,10 @@ const findAllItems = async (req, res) => {
   console.log("all");
   console.log(items);
   console.log("haha");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.json(items);
-}
+};
 
 const findItemsByKeyword = async (req, res) => {
   const keyword = req.body.keyword;
@@ -37,7 +43,7 @@ const findItemsByKeyword = async (req, res) => {
   console.log(items);
   console.log("haha");
   res.json(items);
-}
+};
 
 const ItemsController = (app) => {
   app.post("/api/items/create", create);
