@@ -11,7 +11,7 @@ const create = async (req, res) => {
 const findRecentItems = async (req, res) => {
   const itemIds = req.body.itemIds.split(",").filter((str) => str !== "").splice(0, 4);
   console.log(itemIds);
-  const items = await itemsDao.findRecentItems(itemIds);
+  const items = await itemsDao.findItems(itemIds);
   console.log("recents");
   console.log(items);
   console.log("haha");
@@ -19,9 +19,31 @@ const findRecentItems = async (req, res) => {
   // res.json({})
 }
 
+const findAllItems = async (req, res) => {
+  const itemIds = req.body.itemIds.split(",").filter((str) => str !== "");
+  console.log(itemIds);
+  const items = await itemsDao.findItems(itemIds);
+  console.log("all");
+  console.log(items);
+  console.log("haha");
+  res.json(items);
+}
+
+const findItemsByKeyword = async (req, res) => {
+  const keyword = req.body.keyword;
+  console.log(keyword);
+  const items = await itemsDao.findItemsByKeyword(keyword);
+  console.log("all");
+  console.log(items);
+  console.log("haha");
+  res.json(items);
+}
+
 const ItemsController = (app) => {
   app.post("/api/items/create", create);
   app.post("/api/items/findRecentItems", findRecentItems);
+  app.post("/api/items/findAllItems", findAllItems);
+  app.post("/api/items/findItemsByKeyword", findItemsByKeyword);
 };
 
 export default ItemsController;
