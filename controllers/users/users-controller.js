@@ -9,9 +9,11 @@ const signup = async (req, res) => {
   if (!existingUser) {
     currentUser = await usersDao.createUser(user);
     req.session["currentUser"] = currentUser;
+    res.header("Access-Control-Allow-Origin", "https://stalwart-figolla-6ff949.netlify.app");
     res.json(currentUser);
   } else {
     // if username already exists
+    res.header("Access-Control-Allow-Origin", "https://stalwart-figolla-6ff949.netlify.app");
     res.sendStatus(409);
   }
 };
@@ -26,6 +28,7 @@ const login = async (req, res) => {
     res.send(existingUser);
     return;
   } else {
+    res.header("Access-Control-Allow-Origin", "https://stalwart-figolla-6ff949.netlify.app");
     res.sendStatus(401);
   }
 };
