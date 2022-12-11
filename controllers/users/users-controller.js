@@ -22,7 +22,7 @@ const login = async (req, res) => {
   if (existingUser) {
     req.session["currentUser"] = existingUser;
     console.log(req);
-    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "https://main--stalwart-figolla-6ff949.netlify.app");
     res.send(existingUser);
     return;
   } else {
