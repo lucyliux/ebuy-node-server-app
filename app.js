@@ -25,7 +25,7 @@ mongoose.connect(CONNECTION_STRING, options);
 var app = express();
 app.use(cors({
   credentials: true,
-  origin: 'http://localhost:3000',
+  origin: process.env.CLIENT_URL || 'http://localhost:3000',
 }));
 
 // let sess = {
@@ -55,4 +55,4 @@ UsersController(app);
 SessionsController(app);
 ItemsController(app);
 ReviewsController(app);
-app.listen(4000);
+app.listen(process.env.PORT || 4000);
