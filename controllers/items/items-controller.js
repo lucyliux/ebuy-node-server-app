@@ -5,6 +5,7 @@ const create = async (req, res) => {
   console.log("hoho");
   console.log(req);
   const newItem = await itemsDao.createItem(item);
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(newItem);
 };
 
@@ -18,6 +19,7 @@ const findRecentItems = async (req, res) => {
   console.log("recents");
   console.log(items);
   console.log("haha");
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(items);
 };
 
@@ -28,6 +30,7 @@ const findAllItems = async (req, res) => {
   console.log("all");
   console.log(items);
   console.log("haha");
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(items);
 };
 
@@ -38,6 +41,7 @@ const findItemsByKeyword = async (req, res) => {
   console.log("all");
   console.log(items);
   console.log("haha");
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(items);
 };
 

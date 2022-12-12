@@ -5,6 +5,7 @@ const create = async (req, res) => {
   console.log("hoho");
   console.log(req);
   const newReview = await reviewsDao.createReview(review);
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(newReview);
 }
 
@@ -15,6 +16,7 @@ const findReviewsBySeller = async (req, res) => {
   console.log("all");
   console.log(reviews);
   console.log("haha");
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(reviews);
 }
 

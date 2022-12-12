@@ -9,11 +9,11 @@ const signup = async (req, res) => {
   if (!existingUser) {
     currentUser = await usersDao.createUser(user);
     req.session["currentUser"] = currentUser;
-    res.header("Access-Control-Allow-Origin", "https://stalwart-figolla-6ff949.netlify.app");
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
     res.json(currentUser);
   } else {
     // if username already exists
-    res.header("Access-Control-Allow-Origin", "https://stalwart-figolla-6ff949.netlify.app");
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
     res.sendStatus(409);
   }
 };
@@ -24,33 +24,39 @@ const login = async (req, res) => {
   if (existingUser) {
     req.session["currentUser"] = existingUser;
     console.log(req);
-    res.header("Access-Control-Allow-Origin", "https://stalwart-figolla-6ff949.netlify.app");
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
     res.send(existingUser);
     return;
   } else {
-    res.header("Access-Control-Allow-Origin", "https://stalwart-figolla-6ff949.netlify.app");
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
     res.sendStatus(401);
   }
 };
 
 const logout = (req, res) => {
   req.session.destroy();
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.send(200);
 };
 
 const profile = (req, res) => {
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.send(req.session["currentUser"]);
 };
 
 const updateUser = async (req, res) => {
   const user = req.body;
   const found = await usersDao.findUserByUsername(user.username);
-  await usersDao.updateUser(user);
-  const updatedUser = await usersDao.findUserByUsername(user.username);
-  if (updatedUser) {
-    res.json(updatedUser);
+  if (found) {
+    await usersDao.updateUser(user);
+    const updatedUser = await usersDao.findUserByUsername(user.username);
+    if (updatedUser) {
+      res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
+      res.json(updatedUser);
+    }
   } else {
     // if user does not exist
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
     res.sendStatus(404);
   }
 };
@@ -60,6 +66,7 @@ const findUserByName = async (req, res) => {
   const user = await usersDao.findUserByUsername(username);
   console.log(user);
   console.log(username);
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(user);
 };
 
