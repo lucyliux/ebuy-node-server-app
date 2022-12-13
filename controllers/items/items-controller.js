@@ -32,11 +32,19 @@ const findItemsByKeyword = async (req, res) => {
   res.json(items);
 };
 
+const deleterItem = async (req, res) => {
+  const itemId = req.params.itemId;
+  const status = await itemsDao.deleteItem(itemId);
+  res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
+  res.json(status);
+}
+
 const ItemsController = (app) => {
   app.post("/api/items/create", create);
   app.post("/api/items/findRecentItems", findRecentItems);
   app.post("/api/items/findAllItems", findAllItems);
   app.post("/api/items/findItemsByKeyword", findItemsByKeyword);
+  app.delete("/api/items/:itemId", deleterItem);
 };
 
 export default ItemsController;
