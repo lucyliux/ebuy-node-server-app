@@ -6,5 +6,5 @@ export const createItem = async (item) =>
 export const findItems = async (itemIds) =>
   await itemsModel.find({ '_id': { $in: itemIds } }).catch((err)=>{});
     
-export const findItemsByKeyword = async (keyword) =>
-  await itemsModel.find({ name: { $regex: keyword, $options: 'i' } });
+export const findItemsByKeyword = async (keyword, limit) =>
+  await itemsModel.find({ name: { $regex: keyword, $options: 'i' } }).limit(limit);

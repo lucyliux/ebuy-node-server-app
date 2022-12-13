@@ -28,27 +28,14 @@ app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:3000',
 }));
 
-// let sess = {
-//   secret: SECRET,
-//   cookie: { secure: false }
-// };
-
-// if (process.env.ENV === 'production') {
-//   app.set('trust proxy', 1)
-//   sess.cookie.secure = true;
-// }
 app.use(session({
   secret: 'secret', // should be env var
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false, sameSite: false } // or true?
+  cookie: { secure: false, sameSite: false }
 }));
 
 app.use(express.json());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({
-// extended: true
-// }));
 app.use(cookieParser());
 
 UsersController(app);

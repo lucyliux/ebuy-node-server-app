@@ -2,8 +2,6 @@ import * as itemsDao from "./items-dao.js";
 
 const create = async (req, res) => {
   const item = req.body;
-  console.log("hoho");
-  console.log(req);
   const newItem = await itemsDao.createItem(item);
   res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(newItem);
@@ -14,33 +12,22 @@ const findRecentItems = async (req, res) => {
     .split(",")
     .filter((str) => str !== "")
     .splice(0, 4);
-  console.log(itemIds);
   const items = await itemsDao.findItems(itemIds);
-  console.log("recents");
-  console.log(items);
-  console.log("haha");
   res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(items);
 };
 
 const findAllItems = async (req, res) => {
   const itemIds = req.body.itemIds.split(",").filter((str) => str !== "");
-  console.log(itemIds);
   const items = await itemsDao.findItems(itemIds);
-  console.log("all");
-  console.log(items);
-  console.log("haha");
   res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(items);
 };
 
 const findItemsByKeyword = async (req, res) => {
   const keyword = req.body.keyword;
-  console.log(keyword);
-  const items = await itemsDao.findItemsByKeyword(keyword);
-  console.log("all");
-  console.log(items);
-  console.log("haha");
+  const limit =req.body.limit
+  const items = await itemsDao.findItemsByKeyword(keyword, limit);
   res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL || 'http://localhost:3000');
   res.json(items);
 };
